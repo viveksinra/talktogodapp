@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import ChatsScreens from './src/screens/ChatsScreens';
+import OneChatScreen from './src/screens/OneChatScreen';
 
 
 
@@ -8,7 +9,8 @@ export default function App() {
   return (
     <View style={styles.container}>
      
-      <ChatsScreens />
+      {/* <ChatsScreens /> */}
+      <OneChatScreen />
       <StatusBar style="auto" />
     </View>
   );
