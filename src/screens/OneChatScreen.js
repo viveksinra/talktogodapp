@@ -1,5 +1,6 @@
 import { View, Text, KeyboardAvoidingView, Platform } from 'react-native'
-import React from 'react'
+import {useRoute, useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react'
 import bg from '../../assets/images/BG.png'
 import { ImageBackground } from 'react-native'
 import { StyleSheet } from "react-native";
@@ -9,6 +10,12 @@ import { FlatList } from 'react-native'
 import InputBox from '../components/InputBox';
 
 const OneChatScreen = () => {
+    const route = useRoute();
+    const navigation = useNavigation();
+useEffect(() => {
+    navigation.setOptions({ title:route.params.name})
+},[route.params.name])
+
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.bg}
