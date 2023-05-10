@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import React from 'react'
 import bg from '../../assets/images/BG.png'
 import { ImageBackground } from 'react-native'
@@ -6,9 +6,13 @@ import { StyleSheet } from "react-native";
 import Message from '../components/Message'
 import messages from '../../assets/data/messages.json'
 import { FlatList } from 'react-native'
+import InputBox from '../components/InputBox';
 
 const OneChatScreen = () => {
   return (
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.bg}
+    >
         <ImageBackground source={bg} style={styles.bg}>
             <FlatList 
             data={messages} 
@@ -16,7 +20,9 @@ const OneChatScreen = () => {
             style={styles.list}
             inverted
             />
+            <InputBox />
       </ImageBackground>
+      </KeyboardAvoidingView>
   )
 }
 

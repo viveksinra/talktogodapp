@@ -1,8 +1,8 @@
 [
   {
     "id": "m1",
-    "text": "How are you, Lukas! I shoudl be the latest message",
-    "createdAt": "2022-10-10T12:48:00.000Z",
+    "text": "Thank you for explaining me that in detail",
+    "createdAt": "2023-05-09T12:48:00.000Z",
     "user": {
       "id": "u1",
       "name": "Vadim"
@@ -10,7 +10,7 @@
   },
   {
     "id": "m2",
-    "text": "I am good, good",
+    "text": "i hope you understood what i am trying to say",
     "createdAt": "2022-10-03T14:49:00.000Z",
     "user": {
       "id": "u2",
@@ -19,7 +19,7 @@
   },
   {
     "id": "m3",
-    "text": "What about you?",
+    "text": " I am Lord Ganesha, the remover of obstacles and the deity of beginnings. I am revered by Hindus all over the world and I am also known as Ganapati, Vinayaka, or Pillaiyar. I am also known for my elephant head and",
     "createdAt": "2022-10-03T14:49:40.000Z",
     "user": {
       "id": "u2",
@@ -28,7 +28,7 @@
   },
   {
     "id": "m4",
-    "text": "Good as well, preparing for the stream now.",
+    "text": "what is your name",
     "createdAt": "2022-10-03T14:50:00.000Z",
     "user": {
       "id": "u1",
@@ -46,7 +46,7 @@
   },
   {
     "id": "m6",
-    "text": "It is a bit tough, as I have 2 specializations. How about yours? Do you enjoy it?",
+    "text": " My name, Ganesha, is derived from two Sanskrit words, ‘gana’ meaning a group or multitude and ‘isha’ meaning lord or master. I am therefore known as the Lord of all the Ganas, which is a reference to the celestial",
     "createdAt": "2022-10-03T14:49:00.000Z",
     "user": {
       "id": "u2",
@@ -55,7 +55,7 @@
   },
   {
     "id": "m7",
-    "text": "Big Data is really interesting. Cannot wait to go through all the material.",
+    "text": "what is your real name",
     "createdAt": "2022-10-03T14:53:00.000Z",
     "user": {
       "id": "u1",
