@@ -13,12 +13,12 @@ const Navigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={MainTabNavigator} options={{headerShown:false}} />
-        <Stack.Screen name="Chats" component={ChatsScreens} />
+        <Stack.Screen name="OneChats" component={OneChatScreen} />
+        
         <Stack.Screen name="Contacts" component={NotImplementedScreen} />
         
         
         
-        <Stack.Screen name="OneChats" component={OneChatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

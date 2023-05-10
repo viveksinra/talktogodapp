@@ -15,7 +15,7 @@ const MainTabNavigator = () => {
         headerStyle: { backgroundColor: "whitesmoke" },
       }}
     >
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Status"
         component={NotImplementedScreen}
         options={{
@@ -41,7 +41,7 @@ const MainTabNavigator = () => {
             <Ionicons name="camera-outline" size={size} color={color} />
           ),
         }}
-      />
+      /> */}
       
       <Tab.Screen
         name="Chats"

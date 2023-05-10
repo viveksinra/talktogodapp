@@ -7,7 +7,7 @@ dayjs.extend(relativeTime);
 const ChatListItem = ({chat}) => {
     const navigation = useNavigation();
   return (
-    <Pressable onPress={() => navigation.navigate('OneChats', {id:chat.id, name:chat.user.name})} style={styles.container}>
+    <Pressable onPress={() => navigation.navigate('OneChats', {id:chat.id, name:chat.user.name,image: chat.user.image})} style={styles.container}>
         <Image source={{uri: chat.user.image}} 
         style={styles.image}/>
         <View style={styles.content}>
