@@ -4,6 +4,7 @@ import React from 'react'
 import {AntDesign, MaterialIcons} from '@expo/vector-icons';
 import { TextInput } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const InputBox = () => {
   const [newMessage,setNewMessage] = useState('')
@@ -14,13 +15,14 @@ const InputBox = () => {
 
   return (
     <View style={styles.container}>
+    {/* //  <SafeAreaView edges={['none']} style={styles.container}>  */}
       {/* Icons */}
       <AntDesign name="plus" size={24} color="royalblue"/>
       {/* Text Input */}
       <TextInput value={newMessage} onChangeText={setNewMessage} style={styles.input} placeholder='type your message..'/>
       {/* Icon */}
       <MaterialIcons onPress = {onSend} style={styles.send} name="send" size={22} color="white" />
-    </View>
+     </View>
   )
 }
 
