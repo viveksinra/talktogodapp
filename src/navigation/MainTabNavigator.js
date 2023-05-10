@@ -44,7 +44,7 @@ const MainTabNavigator = () => {
       /> */}
       
       <Tab.Screen
-        name="Chats"
+        name="Talk To God"
         component={ChatsScreens}
         options={({ navigation }) => ({
           tabBarIcon: ({ color, size }) => (

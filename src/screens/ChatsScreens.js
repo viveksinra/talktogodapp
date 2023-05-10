@@ -4,17 +4,6 @@ import ChatListItem from './../components/ChatListItem'
 import chats from '../../assets/data/chats.json'
 import { FlatList } from 'react-native'
 
-const chat = {
-    id:"1",
-    user:{
-      image:"https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg",
-      name:"Vivek SIngh",
-    },
-    lastMessage:{
-      text:"thank you for your message🙂",
-      createdAt:"05:30",
-    }
-  }
 const ChatsScreens = () => {
   return (
     <FlatList

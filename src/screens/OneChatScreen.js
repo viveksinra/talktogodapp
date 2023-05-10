@@ -13,7 +13,7 @@ const OneChatScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
     const buttonOpacity = new Animated.Value(1);
-    const donateButtonImage = 'https://png.pngtree.com/png-clipart/20220603/ourmid/pngtree-donation-button-red-with-blink-png-image_4792638.png'
+    const donateButtonImage = 'https://res.cloudinary.com/dncukhilq/image/upload/v1683721708/talktogod/imageUsedInApp/Donate_Button-_umdown.png'
     const handleDonatePress = () => {
         // Perform your donate action here
       };
@@ -38,7 +38,7 @@ const OneChatScreen = () => {
               <Animated.View style={{ opacity: buttonOpacity }}>
                 <Image
                   source={{uri :donateButtonImage}}
-                  style={{ width: 30, height: 30}}
+                  style={{ width: 85, height: 25, marginLeft: 10}}
                 />
               </Animated.View>
             </TouchableOpacity>
