@@ -3,6 +3,7 @@ import NotImplementedScreen from "../screens/NotImplementedScreen";
 
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import ChatsScreens from "../screens/ChatsScreens";
+import DonateScreen from "../screens/DonateScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,16 +16,17 @@ const MainTabNavigator = () => {
         headerStyle: { backgroundColor: "whitesmoke" },
       }}
     >
-      {/* <Tab.Screen
-        name="Status"
-        component={NotImplementedScreen}
+      
+      <Tab.Screen
+        name="Donate"
+        component={DonateScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="logo-whatsapp" size={size} color={color} />
+            <Ionicons name="add-circle-outline" size={size} color={color} />
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Calls"
         component={NotImplementedScreen}
         options={{

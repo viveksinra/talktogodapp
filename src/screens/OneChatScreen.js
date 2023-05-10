@@ -8,6 +8,7 @@ import Message from '../components/Message'
 import messages from '../../assets/data/messages.json'
 import { FlatList } from 'react-native'
 import InputBox from '../components/InputBox';
+import { Ionicons } from '@expo/vector-icons';
 
 const OneChatScreen = () => {
     const route = useRoute();
@@ -15,20 +16,28 @@ const OneChatScreen = () => {
     const buttonOpacity = new Animated.Value(1);
     const donateButtonImage = 'https://res.cloudinary.com/dncukhilq/image/upload/v1683721708/talktogod/imageUsedInApp/Donate_Button-_umdown.png'
     const handleDonatePress = () => {
-        // Perform your donate action here
+        navigation.navigate('Donate');
       };
 
       
       useEffect(() => {
         navigation.setOptions({
-          title: route.params.name,
-          headerTitleStyle: { alignSelf: 'center' },
-          headerLeft: () => (
-            <Image
-              source={{ uri: route.params.image }}
-              style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10, marginRight: 5 }}
-            />
-          ),
+            title: route.params.name,
+            headerTitleStyle: {
+                alignSelf: 'center',
+                fontSize: 18,
+                fontWeight: 'bold',
+                marginLeft: -20,
+              },
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 5,marginRight: 5, flexDirection: 'row', alignItems: 'center' }}>
+                <Ionicons name="ios-arrow-back" size={24} color="black" style={{ marginRight: 5 }} />
+                <Image
+                  source={{ uri: route.params.image }}
+                  style={{ width: 40, height: 40, borderRadius: 20 }}
+                />
+              </TouchableOpacity>
+            ),
           headerRight: () => (
             <TouchableOpacity
               activeOpacity={0.8}
@@ -37,14 +46,15 @@ const OneChatScreen = () => {
             >
               <Animated.View style={{ opacity: buttonOpacity }}>
                 <Image
-                  source={{uri :donateButtonImage}}
-                  style={{ width: 85, height: 25, marginLeft: 10}}
+                  source={{ uri: donateButtonImage }}
+                  style={{ width: 85, height: 25, marginLeft: 10 }}
                 />
               </Animated.View>
             </TouchableOpacity>
           ),
         });
       }, [navigation, route.params.name, route.params.image]);
+      
 
       
       useEffect(() => {
