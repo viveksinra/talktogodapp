@@ -8,7 +8,7 @@ const NotImplementedScreen = () => {
       <Text style={styles.text}>Not Implemented!</Text>
       <Image
         source={{
-          uri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/capybara+copy.png',
+          uri: 'https://intellibrain-aws.s3.ap-south-1.amazonaws.com/assets/img/comingsoon.gif',
         }}
         style={styles.image}
         resizeMode="contain"
