@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const SettingComponent = () => {
   const [selectedTheme, setSelectedTheme] = useState('system');
@@ -20,7 +21,10 @@ const SettingComponent = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={['#FFFFFF', '#D9E4F5']} style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Settings</Text>
+      </View>
       <View style={styles.option}>
         <View style={styles.optionContent}>
           <View style={styles.optionTextContainer}>
@@ -76,12 +80,12 @@ const SettingComponent = () => {
         <View style={styles.optionContent}>
           <View style={styles.optionTextContainer}>
             <Ionicons name="language-outline" size={24} color="black" />
-            <Text style={styles.optionText}>Language</Text>
-          </View>
-          <Text style={styles.selectedText}>{selectedLanguage}</Text>
-        </View>
-        </TouchableOpacity>
-  {/* Theme Selection Modal */}
+<Text style={styles.optionText}>Language</Text>
+</View>
+<Text style={styles.selectedText}>{selectedLanguage}</Text>
+</View>
+</TouchableOpacity>  
+{/* Theme Selection Modal */}
   <Modal visible={isThemeModalVisible} animationType="slide">
     <View style={styles.modalContainer}>
       <Text style={styles.modalTitle}>Select Theme</Text>
@@ -142,20 +146,30 @@ const SettingComponent = () => {
       </TouchableOpacity>
     </View>
   </Modal>
-</View>
+</LinearGradient>
 );
 };
 
 const styles = StyleSheet.create({
 container: {
 flex: 1,
-backgroundColor: '#fff',
+},
+header: {
+paddingVertical: 20,
+paddingHorizontal: 15,
+borderBottomWidth: 1,
+borderBottomColor: '#ddd',
+},
+headerText: {
+fontSize: 24,
+fontWeight: 'bold',
+color: '#333',
 },
 option: {
+paddingVertical: 15,
+paddingHorizontal: 20,
 borderBottomWidth: 1,
-borderBottomColor: '#f5f5f5',
-paddingHorizontal: 15,
-paddingVertical: 10,
+borderBottomColor: '#ddd',
 },
 optionContent: {
 flexDirection: 'row',
@@ -168,39 +182,41 @@ alignItems: 'center',
 },
 optionText: {
 marginLeft: 15,
-fontSize: 16,
+fontSize: 18,
+color: '#333',
 },
 selectedText: {
-color: 'blue',
-fontWeight: 'bold',
+color: '#666',
+fontSize: 16,
 },
 modalContainer: {
 flex: 1,
-backgroundColor: '#fff',
-justifyContent: 'center',
-alignItems: 'center',
+paddingVertical: 50,
+paddingHorizontal: 20,
 },
 modalTitle: {
-fontSize: 20,
+fontSize: 24,
 fontWeight: 'bold',
 marginBottom: 20,
+color: '#333',
 },
 modalOption: {
-paddingVertical: 10,
+paddingVertical: 15,
 borderBottomWidth: 1,
-borderBottomColor: '#f5f5f5',
-width: '100%',
-alignItems: 'center',
+borderBottomColor: '#ddd',
 },
 modalOptionText: {
-fontSize: 16,
+fontSize: 18,
+color: '#333',
 },
 modalCloseButton: {
 marginTop: 20,
+alignSelf: 'center',
 },
 modalCloseButtonText: {
-fontSize: 16,
-color: 'blue',
+fontSize: 18,
+color: '#333',
+fontWeight: 'bold',
 },
 });
 
