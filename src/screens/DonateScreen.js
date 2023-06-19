@@ -9,16 +9,7 @@ const DonateScreen = () => {
     <View style={{ flex: 1 }}>
     <DonateComponent />
   </View>
-    // <View style={styles.container}>
-    //   <Text style={styles.text}>Donate Screen</Text>
-    //   <Image
-    //     source={{
-    //       uri: 'https://intellibrain-aws.s3.ap-south-1.amazonaws.com/assets/img/comingsoon.gif',
-    //     }}
-    //     style={styles.image}
-    //     resizeMode="contain"
-    //   />
-    // </View>
+
   );
 };
 

@@ -1,0 +1,182 @@
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, View, Modal, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+const LanguageSelector = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
+
+  const handleLanguageSelection = (language) => {
+    setSelectedLanguage(language);
+    setLanguageModalVisible(false);
+  };
+
+  return (
+    <>
+      <TouchableOpacity
+        style={styles.option}
+        onPress={() => setLanguageModalVisible(true)}
+      >
+        <View style={styles.optionContent}>
+          <View style={styles.optionTextContainer}>
+            <Ionicons name="language-outline" size={24} color="black" />
+            <Text style={styles.optionText}>Language</Text>
+          </View>
+          <Text style={styles.selectedText}>{selectedLanguage}</Text>
+        </View>
+      </TouchableOpacity>
+      <Modal visible={isLanguageModalVisible} animationType="slide">
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Select Language</Text>
+          <TouchableOpacity
+            style={[
+              styles.modalOption,
+              selectedLanguage === 'English' && styles.selectedOption,
+            ]}
+            onPress={() => handleLanguageSelection('English')}
+          >
+            <Text
+              style={[
+                styles.modalOptionText,
+                selectedLanguage === 'English' && styles.selectedOptionText,
+              ]}
+            >
+              English
+              {selectedLanguage === 'English' && (
+                <Ionicons
+                  name="checkmark-sharp"
+                  size={24}
+                  color="#00F"
+                  style={styles.checkmarkIcon}
+                />
+              )}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.modalOption,
+              selectedLanguage === 'Spanish' && styles.selectedOption,
+            ]}
+            onPress={() => handleLanguageSelection('Spanish')}
+          >
+            <Text
+              style={[
+                styles.modalOptionText,
+                selectedLanguage === 'Spanish' && styles.selectedOptionText,
+              ]}
+            >
+              Spanish
+              {selectedLanguage === 'Spanish' && (
+                <Ionicons
+                  name="checkmark-sharp"
+                  size={24}
+                  color="#00F"
+                  style={styles.checkmarkIcon}
+                />
+              )}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.modalOption,
+              selectedLanguage === 'French' && styles.selectedOption,
+            ]}
+            onPress={() => handleLanguageSelection('French')}
+          >
+            <Text
+              style={[
+                styles.modalOptionText,
+                selectedLanguage === 'French' && styles.selectedOptionText,
+              ]}
+            >
+              French
+              {selectedLanguage === 'French' && (
+                <Ionicons
+                  name="checkmark-sharp"
+                  size={24}
+                  color="#00F"
+                  style={styles.checkmarkIcon}
+                />
+              )}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.modalCloseButton}
+            onPress={() => setLanguageModalVisible(false)}
+          >
+            <Text style={styles.modalCloseButtonText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  option: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  optionContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  optionTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  optionText: {
+    marginLeft: 15,
+    fontSize: 18,
+    color: '#333',
+  },
+  selectedText: {
+    fontSize: 18,
+    color: '#777',
+  },
+  modalContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    backgroundColor: '#fff',
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  modalOption: {
+    paddingVertical: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  selectedOption: {
+    backgroundColor: '#f1f1f1',
+  },
+  modalOptionText: {
+    fontSize: 18,
+    marginLeft: 10,
+  },
+  selectedOptionText: {
+    fontWeight: 'bold',
+  },
+  checkmarkIcon: {
+    marginLeft: 'auto',
+  },
+  modalCloseButton: {
+    marginTop: 20,
+    paddingVertical: 15,
+    backgroundColor: '#f1f1f1',
+    alignItems: 'center',
+  },
+  modalCloseButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+});
+
+export default LanguageSelector;
