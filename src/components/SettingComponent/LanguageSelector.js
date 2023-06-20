@@ -1,14 +1,27 @@
+import 'intl-pluralrules';
+
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, Modal, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 
 const LanguageSelector = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const { i18n } = useTranslation();
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'hi', name: 'Hindi' },   
+  ];
+
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0].code);
   const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
 
-  const handleLanguageSelection = (language) => {
-    setSelectedLanguage(language);
+  const handleLanguageSelection = (languageCode) => {
+    setSelectedLanguage(languageCode);
     setLanguageModalVisible(false);
+
+    // Update the language globally using i18next
+    i18n.changeLanguage(languageCode);
   };
 
   return (
@@ -22,84 +35,41 @@ const LanguageSelector = () => {
             <Ionicons name="language-outline" size={24} color="black" />
             <Text style={styles.optionText}>Language</Text>
           </View>
-          <Text style={styles.selectedText}>{selectedLanguage}</Text>
+          <Text style={styles.selectedText}>
+            {languages.find((lang) => lang.code === selectedLanguage)?.name}
+          </Text>
         </View>
       </TouchableOpacity>
       <Modal visible={isLanguageModalVisible} animationType="slide">
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Select Language</Text>
-          <TouchableOpacity
-            style={[
-              styles.modalOption,
-              selectedLanguage === 'English' && styles.selectedOption,
-            ]}
-            onPress={() => handleLanguageSelection('English')}
-          >
-            <Text
+          {languages.map((language) => (
+            <TouchableOpacity
+              key={language.code}
               style={[
-                styles.modalOptionText,
-                selectedLanguage === 'English' && styles.selectedOptionText,
+                styles.modalOption,
+                selectedLanguage === language.code && styles.selectedOption,
               ]}
+              onPress={() => handleLanguageSelection(language.code)}
             >
-              English
-              {selectedLanguage === 'English' && (
-                <Ionicons
-                  name="checkmark-sharp"
-                  size={24}
-                  color="#00F"
-                  style={styles.checkmarkIcon}
-                />
-              )}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.modalOption,
-              selectedLanguage === 'Spanish' && styles.selectedOption,
-            ]}
-            onPress={() => handleLanguageSelection('Spanish')}
-          >
-            <Text
-              style={[
-                styles.modalOptionText,
-                selectedLanguage === 'Spanish' && styles.selectedOptionText,
-              ]}
-            >
-              Spanish
-              {selectedLanguage === 'Spanish' && (
-                <Ionicons
-                  name="checkmark-sharp"
-                  size={24}
-                  color="#00F"
-                  style={styles.checkmarkIcon}
-                />
-              )}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.modalOption,
-              selectedLanguage === 'French' && styles.selectedOption,
-            ]}
-            onPress={() => handleLanguageSelection('French')}
-          >
-            <Text
-              style={[
-                styles.modalOptionText,
-                selectedLanguage === 'French' && styles.selectedOptionText,
-              ]}
-            >
-              French
-              {selectedLanguage === 'French' && (
-                <Ionicons
-                  name="checkmark-sharp"
-                  size={24}
-                  color="#00F"
-                  style={styles.checkmarkIcon}
-                />
-              )}
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[
+                  styles.modalOptionText,
+                  selectedLanguage === language.code && styles.selectedOptionText,
+                ]}
+              >
+                {language.name}
+                {selectedLanguage === language.code && (
+                  <Ionicons
+                    name="checkmark-sharp"
+                    size={24}
+                    color="#00F"
+                    style={styles.checkmarkIcon}
+                  />
+                )}
+              </Text>
+            </TouchableOpacity>
+          ))}
           <TouchableOpacity
             style={styles.modalCloseButton}
             onPress={() => setLanguageModalVisible(false)}

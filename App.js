@@ -1,15 +1,14 @@
+import 'intl-pluralrules';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import ChatsScreens from './src/screens/ChatsScreens';
-import OneChatScreen from './src/screens/OneChatScreen';
 import Navigator from './src/navigation';
+import i18n from './src/lan/i18n'
 
 
 
 export default function App() {
   return (
     <View style={styles.container}>
-     
       {/* <ChatsScreens /> */}
       {/* <OneChatScreen /> */}
       <Navigator />
