@@ -14,7 +14,7 @@ const ProfileButton = ({ onPress }) => {
       </View> */}
       <View style={styles.profileContainer}>
         <Text style={styles.name}>
-        {t('gods.shiva')}
+        {t('hello')}
         </Text>
         <Text style={styles.status}>{status}</Text>
       </View>

@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
+import {useTranslation} from 'react-i18next';
 
 const DonateComponent = () => {
+  const {t} = useTranslation();
+
   const amounts = [1, 5, 11, 21, 51, 101, 251, 501, 1100, 2100, 5100, 11000];
   const [selectedAmount, setSelectedAmount] = useState(21);
 
@@ -33,8 +36,8 @@ const DonateComponent = () => {
       style={styles.background}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Support Our Cause</Text>
-        <Text style={styles.subtitle}>Your donation can keep our server running and free for everyone</Text>
+        <Text style={styles.title}>{t('doante.title')}</Text>
+        <Text style={styles.subtitle}>{t('doante.subtitle')}</Text>
         <View style={styles.amountContainer}>
           <TouchableOpacity onPress={handleDecrement}>
             <FontAwesome name="minus" size={24} color="#ccc" style={styles.icon} />
@@ -53,7 +56,7 @@ const DonateComponent = () => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.donateButton}>
-          <Text style={styles.donateButtonText}>Donate Now</Text>
+          <Text style={styles.donateButtonText}>{t('donate.buttom')}</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>

@@ -14,7 +14,7 @@ const App = () => {
     <LinearGradient colors={['#FFFFFF', '#D9E4F5']} style={styles.container}>
       {/* <OtherComponent /> */}
       <ProfileButton onPress={handleProfileUpdate} />
-      <ThemeSelector />
+      {/* <ThemeSelector /> */}
       <LanguageSelector />
     </LinearGradient>
   );

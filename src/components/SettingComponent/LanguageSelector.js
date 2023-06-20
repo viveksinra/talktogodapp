@@ -6,14 +6,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
 const LanguageSelector = () => {
-  const { i18n } = useTranslation();
+  const {t, i18n } = useTranslation();
 
   const languages = [
     { code: 'en', name: 'English' },
-    { code: 'hi', name: 'Hindi' },   
+    { code: 'hi', name: 'हिंदी' },   
   ];
-
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0].code);
+  const onceSelectedLanguage = i18n.language || languages[0].code;
+  const [selectedLanguage, setSelectedLanguage] = useState(onceSelectedLanguage);
   const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
 
   const handleLanguageSelection = (languageCode) => {
@@ -33,7 +33,7 @@ const LanguageSelector = () => {
         <View style={styles.optionContent}>
           <View style={styles.optionTextContainer}>
             <Ionicons name="language-outline" size={24} color="black" />
-            <Text style={styles.optionText}>Language</Text>
+            <Text style={styles.optionText}>{t("setting.language")}</Text>
           </View>
           <Text style={styles.selectedText}>
             {languages.find((lang) => lang.code === selectedLanguage)?.name}
