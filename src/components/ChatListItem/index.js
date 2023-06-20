@@ -6,6 +6,11 @@ dayjs.extend(relativeTime);
 
 const ChatListItem = ({chat}) => {
     const navigation = useNavigation();
+    if (!chat || typeof chat !== 'object' || !chat.user) {
+        // Handle the case where the chat object is undefined or doesn't have the expected structure
+        console.log('Invalid chat object:', chat);
+        return null;
+      }
   return (
     <Pressable onPress={() => navigation.navigate('OneChats', {id:chat.id, name:chat.user.name,image: chat.user.image})} style={styles.container}>
         <Image source={{uri: chat.user.image}} 
@@ -15,7 +20,7 @@ const ChatListItem = ({chat}) => {
                  <Text numberOfLines={1} style={styles.name}>{chat.user.name}</Text>
                  <Text style={styles.subTitle} >{dayjs(chat.lastMessage.createdAt).fromNow(true)}</Text>
             </View>
-            <Text numberOfLines={2} style={styles.subTitle}>{chat.lastMessage.text} </Text>
+            <Text numberOfLines={2} style={styles.subTitle}>{chat.user.status} </Text>
         </View>
         
     </Pressable>
@@ -43,13 +48,15 @@ const styles = StyleSheet.create({
     row:{
         flexDirection:'row'
     },
-    name:{
-        flex:1,
-        fontWeight:'bold',
-    },
-    subTitle:{
-        color: 'gray',
-    },
+name:{
+    flex: 1,
+    fontWeight: 'bold',
+    fontSize: 20, // Increase the font size as desired
+},
+subTitle:{
+    color: 'gray',
+    fontSize: 16, // Increase the font size as desired
+},
 });
 
 export default ChatListItem;
