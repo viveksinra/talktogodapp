@@ -6,7 +6,7 @@ dayjs.extend(relativeTime);
 
 const Message = ({message}) => {
   const isMyMessage = () => {
-    return message.user.id == 'u1';
+    return message.user.id == 'userId';
   }
   return (
     <View style={[

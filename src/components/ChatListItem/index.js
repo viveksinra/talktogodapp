@@ -12,7 +12,7 @@ const ChatListItem = ({chat}) => {
         return null;
       }
   return (
-    <Pressable onPress={() => navigation.navigate('OneChats', {id:chat.id, name:chat.user.name,image: chat.user.image})} style={styles.container}>
+    <Pressable onPress={() => navigation.navigate('OneChats', {id:chat.id, name:chat.user.name,image: chat.user.image,link:chat.user.link})} style={styles.container}>
         <Image source={{uri: chat.user.image}} 
         style={styles.image}/>
         <View style={styles.content}>

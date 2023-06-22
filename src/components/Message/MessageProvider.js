@@ -1,0 +1,70 @@
+import React, { createContext, useEffect, useReducer } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const MessageContext = createContext();
+
+const initialState = {
+  messages: {},
+};
+
+const messageReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_MESSAGE':
+      const { godLink, message } = action.payload;
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [godLink]: [...(state.messages[godLink] || []), message],
+        },
+      };
+    case 'SET_MESSAGES':
+      return {
+        ...state,
+        messages: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const MessageProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(messageReducer, initialState);
+
+  useEffect(() => {
+    loadMessages();
+  }, []);
+
+  useEffect(() => {
+    saveMessages(state.messages);
+  }, [state.messages]);
+
+  const loadMessages = async () => {
+    try {
+      const messages = await AsyncStorage.getItem('messages');
+      if (messages) {
+        dispatch({ type: 'SET_MESSAGES', payload: JSON.parse(messages) });
+      }
+    } catch (error) {
+      console.log('Error loading messages from AsyncStorage:', error);
+    }
+  };
+
+  const saveMessages = async (messages) => {
+    try {
+      await AsyncStorage.setItem('messages', JSON.stringify(messages));
+    } catch (error) {
+      console.log('Error saving messages to AsyncStorage:', error);
+    }
+  };
+
+  const addMessage = (godLink, message) => {
+    dispatch({ type: 'ADD_MESSAGE', payload: { godLink, message } });
+  };
+
+  return (
+    <MessageContext.Provider value={{ messages: state.messages, addMessage }}>
+      {children}
+    </MessageContext.Provider>
+  );
+};

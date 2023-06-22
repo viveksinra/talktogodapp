@@ -1,17 +1,24 @@
 import { View, TouchableOpacity, Animated, Image } from 'react-native'
 import {useRoute, useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react'
+import React, { useEffect, useContext } from 'react';
 import bg from '../../assets/images/BG.png'
 import { ImageBackground } from 'react-native'
 import { StyleSheet } from "react-native";
 import Message from '../components/Message'
-import messages from '../../assets/data/messages.json'
+
 import { FlatList } from 'react-native'
 import InputBox from '../components/InputBox';
 import { Ionicons } from '@expo/vector-icons';
+import { MessageContext } from './../../src/components/Message/MessageProvider';
 
 const OneChatScreen = () => {
-    const route = useRoute();
+  const route = useRoute();
+
+const { messages } = useContext(MessageContext);
+const godLink = route.params.link
+console.log(messages)
+console.log(messages[godLink])
+
     const navigation = useNavigation();
     const buttonOpacity = new Animated.Value(1);
     const donateButtonImage = 'https://res.cloudinary.com/dncukhilq/image/upload/v1683721708/talktogod/imageUsedInApp/Donate_Button-_umdown.png'
@@ -82,22 +89,23 @@ const OneChatScreen = () => {
         };
       }, []);
       
-
   return (
     // <KeyboardAvoidingView 
     // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     // keyboardVerticalOffset={110}
     //     style={styles.bg}
     // >
+    
         <View style={styles.bg}>
         <ImageBackground source={bg} style={styles.bg}>
-            <FlatList 
-            data={messages} 
-            renderItem={({item}) => <Message message={item} />} 
-            style={styles.list}
-            inverted
-            />
-            <InputBox />
+        <FlatList
+  data={messages[godLink]}
+  renderItem={({ item }) => <Message message={item} key={item.id} />}
+  keyExtractor={(item) => item.id}
+  style={styles.list}
+  inverted
+/>
+            <InputBox godLink={godLink} />
         </ImageBackground>
         </View>
     // </KeyboardAvoidingView>

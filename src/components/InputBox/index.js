@@ -1,55 +1,99 @@
-import {useState} from 'react';
-import { View, Text } from 'react-native'
-import React from 'react'
-import {AntDesign, MaterialIcons} from '@expo/vector-icons';
-import { TextInput } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState, useContext } from 'react';
+import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { MessageContext } from './../../../src/components/Message/MessageProvider';
 
-const InputBox = () => {
-  const [newMessage,setNewMessage] = useState('')
-  const onSend = ( ) => {
-      console.warn(newMessage);
-      setNewMessage('')
+const InputBox = ({godLink}) => {
+  const [newMessage, setNewMessage] = useState('');
+  const { addMessage } = useContext(MessageContext);
+
+  const generateRandomId = () => {
+    const now = new Date();
+    const year = now.getFullYear().toString().slice(-2);
+    const month = padZero(now.getMonth() + 1);
+    const day = padZero(now.getDate());
+    const hours = padZero(now.getHours());
+    const minutes = padZero(now.getMinutes());
+    const seconds = padZero(now.getSeconds());
+    const randomNum = getRandomInt(100, 999);
+
+    return year + month + day + hours + minutes + seconds + randomNum;
+  };
+
+  const padZero = (value) => {
+    return value < 10 ? '0' + value : value;
+  };
+
+  const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  const onSend = () => {
+    if (newMessage.trim()) {
+      // Generate a new random ID
+      const randomId = generateRandomId();
+
+      // Create a new message object
+      const message = {
+        id: randomId,
+        text: newMessage,
+        createdAt: new Date(),
+        user: {
+          id: 'userId',
+          name: 'Your Name',
+        },
+      };
+
+      // Add the message using the context function
+      addMessage(godLink, message);
+
+      // Clear the input field
+      setNewMessage('');
+    }
   };
 
   return (
     <View style={styles.container}>
-    {/* //  <SafeAreaView edges={['none']} style={styles.container}>  */}
-      {/* Icons */}
-      <AntDesign name="plus" size={24} color="royalblue"/>
       {/* Text Input */}
-      <TextInput value={newMessage} onChangeText={setNewMessage} style={styles.input} placeholder='type your message..'/>
+      <TextInput
+        value={newMessage}
+        onChangeText={setNewMessage}
+        placeholder='Type your message...'
+        style={styles.input}
+      />
       {/* Icon */}
-      <MaterialIcons onPress = {onSend} style={styles.send} name="send" size={22} color="white" />
-     </View>
-  )
-}
+      <TouchableOpacity onPress={onSend} style={styles.send}>
+        <MaterialIcons name="send" size={22} color="white" />
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container:{
-        flexDirection:'row',
-        backgroundColor:'whitesmoke',
-        padding:5,
-    },
-    input:{
-        flex:1,
-        backgroundColor:'white',
-        padding:5,
-        paddingHorizontal:10,
-        marginHorizontal: 10,
+  container: {
+    flexDirection: 'row',
+    backgroundColor: 'whitesmoke',
+    padding: 5,
+  },
+  input: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: 5,
+    paddingHorizontal: 10,
+    marginHorizontal: 10,
+    borderRadius: 50,
+    borderColor: 'lightgray',
+    borderWidth: StyleSheet.hairlineWidth,
+    fontSize: 14,
+  },
+  send: {
+    backgroundColor: 'royalblue',
+    padding: 7,
+    borderRadius: 15,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
-        borderRadius:50,
-        borderColor:'lightgray',
-        borderWidth: StyleSheet.hairlineWidth,
-        fontSize:14, 
-    },
-    send:{
-        backgroundColor:'royalblue',
-        padding:7,
-        borderRadius:15,
-        overflow:'hidden'
-    }
-})
-
-export default InputBox
+export default InputBox;
