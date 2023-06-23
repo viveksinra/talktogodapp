@@ -16,8 +16,6 @@ const OneChatScreen = () => {
 
 const { messages } = useContext(MessageContext);
 const godLink = route.params.link
-console.log(messages)
-console.log(messages[godLink])
 
     const navigation = useNavigation();
     const buttonOpacity = new Animated.Value(1);

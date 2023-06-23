@@ -1,7 +1,8 @@
 
 {
   "translation": {
-    "hello":"Hello",
+    "hello":"Welcome",
+    "input.placeholder":"Type your message in English...",
     "tab.donate":"Donate",
     "tab.chat":"Chat",
     "tab.setting":"Settings",

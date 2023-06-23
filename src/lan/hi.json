@@ -1,6 +1,7 @@
 {
   "translation": {
     "hello":"नमस्ते",
+    "input.placeholder":"अपना संदेश हिंदी में टाइप करें...",
     "tab.donate": "दान करें",
     "tab.chat": "भगवान से बात करें",
     "tab.setting": "सेटिंग्स",

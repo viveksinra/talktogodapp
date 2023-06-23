@@ -2,8 +2,11 @@ import React, { useState, useContext } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MessageContext } from './../../../src/components/Message/MessageProvider';
+import {useTranslation} from 'react-i18next';
 
 const InputBox = ({godLink}) => {
+  const { t } = useTranslation();
+
   const [newMessage, setNewMessage] = useState('');
   const { addMessage } = useContext(MessageContext);
 
@@ -58,7 +61,7 @@ const InputBox = ({godLink}) => {
       <TextInput
         value={newMessage}
         onChangeText={setNewMessage}
-        placeholder='Type your message...'
+        placeholder={t('input.placeholder')}
         style={styles.input}
       />
       {/* Icon */}

@@ -15,7 +15,7 @@ const messageReducer = (state, action) => {
         ...state,
         messages: {
           ...state.messages,
-          [godLink]: [...(state.messages[godLink] || []), message],
+          [godLink]: [ message, ...(state.messages[godLink] || [])],
         },
       };
     case 'SET_MESSAGES':
