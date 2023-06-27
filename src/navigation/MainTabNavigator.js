@@ -6,6 +6,8 @@ import ChatsScreens from "../screens/ChatsScreens";
 import DonateScreen from "../screens/DonateScreen";
 import SettingScreen from "../screens/SettingScreen";
 import {useTranslation} from 'react-i18next';
+import LanguageSelector from "../components/SettingComponent/LanguageSelector";
+import { View } from "react-native";
 const Tab = createBottomTabNavigator();
 
 const MainTabNavigator = () => {
@@ -48,13 +50,11 @@ const MainTabNavigator = () => {
             fontStyle: 'italic',
           },
           headerRight: () => (
-            <Entypo
-              onPress={() => navigation.navigate("Contacts")}
-              name="new-message"
-              size={18}
-              color={"royalblue"}
-              style={{ marginRight: 15 }}
-            />
+            <View style={{ marginRight: 15 }}>
+            <LanguageSelector 
+            showIconOnly={true}
+            /></View>
+     
           ),
         })}
       />

@@ -5,7 +5,7 @@ import { StyleSheet, TouchableOpacity, View, Modal, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
-const LanguageSelector = () => {
+const LanguageSelector = ({showIconOnly}) => {
   const {t, i18n } = useTranslation();
 
   const languages = [
@@ -26,7 +26,18 @@ const LanguageSelector = () => {
 
   return (
     <>
-      <TouchableOpacity
+   { showIconOnly ?  (
+    <TouchableOpacity onPress={() => setLanguageModalVisible(true)}>
+  <View style={styles.navOptionTextContainer}>
+    <Ionicons name="globe-outline" size={24} color="black" />
+    <Text style={styles.selectnavText}>
+      {languages.find((lang) => lang.code === selectedLanguage)?.name}
+    </Text>
+    <Ionicons name="chevron-down-outline" size={24} color="black" />
+  </View>
+</TouchableOpacity>
+      ) : 
+  (    <TouchableOpacity
         style={styles.option}
         onPress={() => setLanguageModalVisible(true)}
       >
@@ -39,7 +50,8 @@ const LanguageSelector = () => {
             {languages.find((lang) => lang.code === selectedLanguage)?.name}
           </Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity>)}
+
       <Modal visible={isLanguageModalVisible} animationType="slide">
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Select Language</Text>
@@ -83,6 +95,24 @@ const LanguageSelector = () => {
 };
 
 const styles = StyleSheet.create({
+// for nav bar
+
+navOptionTextContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 10,
+},
+selectnavText: {
+  fontSize: 18,
+  color: '#333',
+  marginLeft: 5,
+  marginRight: 5,
+  fontWeight: 'bold',
+  textTransform: 'uppercase',
+},
+
+// for setting page
+
   option: {
     paddingVertical: 15,
     paddingHorizontal: 20,
@@ -107,6 +137,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#777',
   },
+
   modalContainer: {
     flex: 1,
     paddingHorizontal: 20,

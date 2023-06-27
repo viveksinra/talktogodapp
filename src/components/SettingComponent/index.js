@@ -15,7 +15,7 @@ const App = () => {
       {/* <OtherComponent /> */}
       <ProfileButton onPress={handleProfileUpdate} />
       {/* <ThemeSelector /> */}
-      <LanguageSelector />
+      <LanguageSelector showIconOnly={false}  />
     </LinearGradient>
   );
 };
