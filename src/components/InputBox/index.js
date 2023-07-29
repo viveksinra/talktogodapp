@@ -56,10 +56,11 @@ const InputBox = ({ godLink }) => {
       await recording.stopAndUnloadAsync();
       if (uri) {
       const file = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
-
+      const LanguageCode = t('LanguageCode')
+console.log(LanguageCode)
      let url = "http://192.168.1.12:2040/api/upload/appRecording/upload"
 
-      const response = await axios.post(url, {file})
+      const response = await axios.post(url, {file,LanguageCode})
     
         const s3URL = response.data;
   
@@ -72,6 +73,7 @@ const InputBox = ({ godLink }) => {
           text:  s3URL.transcription,
           audioUrl:s3URL.data,
           messageType:"audioAndText",
+          lan:"",
           createdAt: new Date(),
           user: {
             id: 'userId',
@@ -87,6 +89,8 @@ const InputBox = ({ godLink }) => {
         console.log('No audio recording found');
       }
     } catch (error) {
+    setIsAnalyzing(false)
+
       console.log('Failed to stop recording', error);
     }
     setRecording(null);
@@ -140,6 +144,7 @@ const InputBox = ({ godLink }) => {
         text: newMessage,
         audioUrl:s3URL.data,
         messageType:"audioAndText",
+        lan:"",
         createdAt: new Date(),
         user: {
           id: 'userId',
@@ -197,7 +202,7 @@ const InputBox = ({ godLink }) => {
             loop
             style={styles.recordingMicAnimation}
           />
-          <Text style={styles.recordingModalMessage}>Please speak your message</Text>
+          <Text style={styles.recordingModalMessage}>{t('recordMessage')}</Text>
           <Text style={styles.recordingModalTimer}>{formatTime(timer)}</Text>
           <View style={styles.recordingModalButtonsContainer}>
             <TouchableOpacity style={styles.recordingModalButtonRed} onPress={cancelRecording}>

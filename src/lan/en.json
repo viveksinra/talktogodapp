@@ -1,6 +1,8 @@
 
 {
   "translation": {
+    "LanguageCode": "en-IN",
+    "recordMessage":"Please speak your message in English..",
     "hello":"Welcome",
     "input.placeholder":"Type your message in English...",
     "tab.donate":"Donate",

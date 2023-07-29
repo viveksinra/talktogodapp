@@ -1,5 +1,7 @@
 {
   "translation": {
+    "LanguageCode": "hi-IN",
+    "recordMessage":"कृपया अपना संदेश हिंदी में बोलें..",
     "hello":"नमस्ते",
     "input.placeholder":"अपना संदेश हिंदी में टाइप करें...",
     "tab.donate": "दान करें",
