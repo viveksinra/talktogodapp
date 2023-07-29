@@ -2,9 +2,13 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet, Modal, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
+import * as FileSystem from 'expo-file-system';
 import { MessageContext } from './../../../src/components/Message/MessageProvider';
 import { useTranslation } from 'react-i18next';
 import LottieView from 'lottie-react-native';
+import axios from 'axios'; // Import the axios library
+import { ActivityIndicator } from 'react-native';
+  // Add the isAnalyzing state
 
 const InputBox = ({ godLink }) => {
   const { t } = useTranslation();
@@ -15,6 +19,8 @@ const InputBox = ({ godLink }) => {
   const [timer, setTimer] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const timerIntervalRef = useRef(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
 
   useEffect(() => {
     // Audio.requestPermissionsAsync();
@@ -22,6 +28,7 @@ const InputBox = ({ godLink }) => {
       clearInterval(timerIntervalRef.current);
     };
   }, []);
+
 
   const startRecording = async () => {
     try {
@@ -38,31 +45,44 @@ const InputBox = ({ godLink }) => {
       console.log('Failed to start recording', error);
     }
   };
-
+  
   const stopRecording = async () => {
+    setIsAnalyzing(true)
     setRecordingModalVisible(false);
     clearInterval(timerIntervalRef.current);
+    const uri  = recording.getURI();
+
     try {
       await recording.stopAndUnloadAsync();
-      const uri = recording.getURI();
-    console.log(recording)
-
       if (uri) {
-        if (newMessage.trim()) {
-          const randomId = generateRandomId();
-          const message = {
-            id: randomId,
-            text: newMessage,
-            voiceURI: uri,
-            createdAt: new Date(),
-            user: {
-              id: 'userId',
-              name: 'Your Name',
-            },
-          };
-          addMessage(godLink, message);
-          setNewMessage('');
-        }
+      const file = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+
+     let url = "http://192.168.1.12:2040/api/upload/appRecording/upload"
+
+      const response = await axios.post(url, {file})
+    
+        const s3URL = response.data;
+  
+        // Use the S3 URL as needed
+       
+     
+        const randomId = generateRandomId();
+        const message = {
+          id: randomId,
+          text:  s3URL.transcription,
+          audioUrl:s3URL.data,
+          messageType:"audioAndText",
+          createdAt: new Date(),
+          user: {
+            id: 'userId',
+            name: 'Your Name',
+          },
+        };
+        console.log('Recording uploaded:', message);
+
+    setIsAnalyzing(false)
+        addMessage(godLink, message);
+        setNewMessage('');
       } else {
         console.log('No audio recording found');
       }
@@ -72,6 +92,10 @@ const InputBox = ({ godLink }) => {
     setRecording(null);
     setIsRecording(false);
   };
+  
+  
+  
+  
 
   const cancelRecording = async () => {
     clearInterval(timerIntervalRef.current);
@@ -114,6 +138,8 @@ const InputBox = ({ godLink }) => {
       const message = {
         id: randomId,
         text: newMessage,
+        audioUrl:s3URL.data,
+        messageType:"audioAndText",
         createdAt: new Date(),
         user: {
           id: 'userId',
@@ -149,7 +175,7 @@ const InputBox = ({ godLink }) => {
         value={newMessage}
         onChangeText={setNewMessage}
         placeholder={t('input.placeholder')}
-        style={styles.input}
+        style={styles.input}onSend
       />
       {/* Icon */}
       {!newMessage ? (
@@ -181,6 +207,15 @@ const InputBox = ({ godLink }) => {
               <Text style={styles.recordingModalButtonText}>Send</Text>
             </TouchableOpacity>
           </View>
+        </View>
+      </Modal>
+      {/* Analysing Model */}
+
+      <Modal animationType="slide" transparent={true} visible={isAnalyzing}>
+        <View style={styles.recordingModalContainer}>
+          {/* You can customize the content of this modal to show an appropriate message */}
+          <ActivityIndicator size="large" color="white" />
+          <Text style={styles.recordingModalMessage}>Analyzing your recording...</Text>
         </View>
       </Modal>
     </View>
