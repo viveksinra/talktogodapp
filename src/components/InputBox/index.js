@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import LottieView from 'lottie-react-native';
 import axios from 'axios'; // Import the axios library
 import { ActivityIndicator } from 'react-native';
-  // Add the isAnalyzing state
 
 const InputBox = ({ godLink }) => {
   const { t } = useTranslation();
@@ -24,11 +23,18 @@ const InputBox = ({ godLink }) => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isGettingResponse, setIsGettingResponse] = useState(false);
 
+  // Set a timeout to reset the state after 1 minute (60000 milliseconds)
+  const resetStateTimer = setTimeout(() => {
+    setIsAnalyzing(false);
+    setIsGettingResponse(false);
+  }, 60000);
 
   useEffect(() => {
     // Audio.requestPermissionsAsync();
     return () => {
       clearInterval(timerIntervalRef.current);
+      // Make sure to clear the timeout if the component unmounts before the timer finishes
+      clearTimeout(resetStateTimer);
     };
   }, []);
 
@@ -236,26 +242,35 @@ const InputBox = ({ godLink }) => {
       </Modal>
 {/* Analysing Model */}
 <Modal animationType="slide" transparent={true} visible={isAnalyzing}>
-        <View style={styles.recordingModalContainer}>
+<View style={styles.recordingModalContainer}>
           <LottieView
-             source={require('./../../../assets/animation/analysing.json')}
+            source={require('./../../../assets/animation/analysing.json')}
             autoPlay
             loop
+            style={styles.newAnimation}
           />
-          <Text style={styles.recordingModalMessage}>Analyzing your recording...</Text>
+      <ActivityIndicator size="large" color="white" />
+
+           <Text style={styles.recordingModalMessage}>Analyzing your recording...</Text>
+          
         </View>
-      </Modal>
-      {/* Getting Response Model */}
-      <Modal animationType="slide" transparent={true} visible={isGettingResponse}>
-        <View style={styles.recordingModalContainer}>
-          <LottieView
-             source={require('./../../../assets/animation/getting-response.json')}
-            autoPlay
-            loop
-          />
-          <Text style={styles.recordingModalMessage}>Getting Response...</Text>
-        </View>
-      </Modal>
+</Modal>
+{/* Getting Response Model */}
+<Modal animationType="slide" transparent={true} visible={isGettingResponse}>
+  <View style={styles.recordingModalContainer}>
+  <LottieView
+      source={require('./../../../assets/animation/getting-response.json')}
+      autoPlay
+      loop
+      style={styles.newAnimation}
+
+    />
+      <ActivityIndicator size="large" color="white" />
+      <Text style={styles.recordingModalMessage}>Getting Response...</Text>
+  </View>
+</Modal>
+
+
     </View>
   );
 };
@@ -300,8 +315,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   recordingMicAnimation: {
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 120,
+  },
+  newAnimation: {
+    width: 300,
+    height: 300,
   },
   recordingModalMessage: {
     fontSize: 18,
