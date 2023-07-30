@@ -106,7 +106,7 @@ const InputBox = ({ godLink }) => {
             name: 'Your Name',
           },
         };
-        console.log('Recording uploaded:', message);
+        console.log('Recording uploaded:');
 
     setIsAnalyzing(false)
     sendAndGetResponse(godLink, message);
