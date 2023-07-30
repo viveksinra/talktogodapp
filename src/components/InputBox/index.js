@@ -12,6 +12,8 @@ import { ActivityIndicator } from 'react-native';
 
 const InputBox = ({ godLink }) => {
   const { t } = useTranslation();
+  const LanguageCode = t('LanguageCode')
+
   const { addMessage } = useContext(MessageContext);
   const [newMessage, setNewMessage] = useState('');
   const [recording, setRecording] = useState(null);
@@ -20,6 +22,7 @@ const InputBox = ({ godLink }) => {
   const [isRecording, setIsRecording] = useState(false);
   const timerIntervalRef = useRef(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isGettingResponse, setIsGettingResponse] = useState(false);
 
 
   useEffect(() => {
@@ -28,6 +31,24 @@ const InputBox = ({ godLink }) => {
       clearInterval(timerIntervalRef.current);
     };
   }, []);
+
+  const sendAndGetResponse = async (godLink, message) => {
+    setIsGettingResponse(true)
+    try{
+      addMessage(godLink, message);
+      let url = "http://192.168.1.12:2040/api/other/ttg/callAiGod/getResponse"
+
+      const response = await axios.post(url, {godLink, message})
+        let myRes = response.data
+        if(myRes.variant == "success"){
+          setIsGettingResponse(false)
+          addMessage(godLink, myRes.resMessage); 
+        }
+    }catch(error){
+      console.log("some error occured while sending or setting the message" + error)
+    }
+    setIsGettingResponse(false)
+  };
 
 
   const startRecording = async () => {
@@ -56,9 +77,8 @@ const InputBox = ({ godLink }) => {
       await recording.stopAndUnloadAsync();
       if (uri) {
       const file = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
-      const LanguageCode = t('LanguageCode')
-console.log(LanguageCode)
-     let url = "http://192.168.1.12:2040/api/upload/appRecording/upload"
+
+     let url = "http://192.168.1.12:2040/api/other/ttg/appRecording/upload"
 
       const response = await axios.post(url, {file,LanguageCode})
     
@@ -70,10 +90,10 @@ console.log(LanguageCode)
         const randomId = generateRandomId();
         const message = {
           id: randomId,
-          text:  s3URL.transcription,
-          audioUrl:s3URL.data,
+          text:  s3URL?.transcription || "Failed",
+          audioUrl:s3URL?.data,
           messageType:"audioAndText",
-          lan:"",
+          lan:LanguageCode,
           createdAt: new Date(),
           user: {
             id: 'userId',
@@ -83,7 +103,7 @@ console.log(LanguageCode)
         console.log('Recording uploaded:', message);
 
     setIsAnalyzing(false)
-        addMessage(godLink, message);
+    sendAndGetResponse(godLink, message);
         setNewMessage('');
       } else {
         console.log('No audio recording found');
@@ -98,7 +118,7 @@ console.log(LanguageCode)
   };
   
   
-  
+
   
 
   const cancelRecording = async () => {
@@ -142,16 +162,16 @@ console.log(LanguageCode)
       const message = {
         id: randomId,
         text: newMessage,
-        audioUrl:s3URL.data,
-        messageType:"audioAndText",
-        lan:"",
+        audioUrl:"",
+        messageType:"text",
+        lan:LanguageCode,
         createdAt: new Date(),
         user: {
           id: 'userId',
           name: 'Your Name',
         },
       };
-      addMessage(godLink, message);
+      sendAndGetResponse(godLink, message);
       setNewMessage('');
     } else if (!recording) {
       startRecording();
@@ -221,6 +241,15 @@ console.log(LanguageCode)
           {/* You can customize the content of this modal to show an appropriate message */}
           <ActivityIndicator size="large" color="white" />
           <Text style={styles.recordingModalMessage}>Analyzing your recording...</Text>
+        </View>
+      </Modal>
+      {/* Getting Response Model */}
+
+      <Modal animationType="slide" transparent={true} visible={isGettingResponse}>
+        <View style={styles.recordingModalContainer}>
+          {/* You can customize the content of this modal to show an appropriate message */}
+          <ActivityIndicator size="large" color="white" />
+          <Text style={styles.recordingModalMessage}>Getting Response...</Text>
         </View>
       </Modal>
     </View>
