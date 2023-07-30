@@ -234,21 +234,25 @@ const InputBox = ({ godLink }) => {
           </View>
         </View>
       </Modal>
-      {/* Analysing Model */}
-
-      <Modal animationType="slide" transparent={true} visible={isAnalyzing}>
+{/* Analysing Model */}
+<Modal animationType="slide" transparent={true} visible={isAnalyzing}>
         <View style={styles.recordingModalContainer}>
-          {/* You can customize the content of this modal to show an appropriate message */}
-          <ActivityIndicator size="large" color="white" />
+          <LottieView
+             source={require('./../../../assets/animation/analysing.json')}
+            autoPlay
+            loop
+          />
           <Text style={styles.recordingModalMessage}>Analyzing your recording...</Text>
         </View>
       </Modal>
       {/* Getting Response Model */}
-
       <Modal animationType="slide" transparent={true} visible={isGettingResponse}>
         <View style={styles.recordingModalContainer}>
-          {/* You can customize the content of this modal to show an appropriate message */}
-          <ActivityIndicator size="large" color="white" />
+          <LottieView
+             source={require('./../../../assets/animation/getting-response.json')}
+            autoPlay
+            loop
+          />
           <Text style={styles.recordingModalMessage}>Getting Response...</Text>
         </View>
       </Modal>
