@@ -15,7 +15,7 @@ const Message = ({ message }) => {
   const isMyMessage = () => {
     return message.user.id === 'userId';
   };
-  const [duration, setDuration] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
 
   // State to track whether the audio is currently playing
   const [isPlaying, setIsPlaying] = useState(false);
@@ -48,26 +48,23 @@ const Message = ({ message }) => {
   };
 
   // Function to update progress when the audio is playing
-// Function to update progress when the audio is playing
-const onPlaybackStatusUpdate = async (status) => {
-  if (status.isLoaded) {
-    setDuration(status.durationMillis);
+  const onPlaybackStatusUpdate = async (status) => {
+    if (status.isLoaded) {
+      setAudioDuration(status.durationMillis);
 
-    if (status.isPlaying) {
-      setProgress(status.positionMillis / status.durationMillis);
-      setElapsedTime(status.positionMillis);
+      if (status.isPlaying) {
+        setProgress(status.positionMillis / status.durationMillis);
+        setElapsedTime(status.positionMillis);
+      }
+
+      if (status.didJustFinish) {
+        await audioRef.current.stopAsync();
+        setIsPlaying(false);
+        setProgress(0);
+        setElapsedTime(0);
+      }
     }
-
-    if (status.didJustFinish) {
-      await audioRef.current.stopAsync();
-      setIsPlaying(false);
-      setProgress(0);
-      setElapsedTime(0);
-    }
-  }
-};
-
-
+  };
 
   // Function to handle seeking
   const onSeek = async (value) => {
@@ -97,18 +94,20 @@ const onPlaybackStatusUpdate = async (status) => {
         {
           backgroundColor: isMyMessage() ? '#DCF8C5' : 'white',
           alignSelf: isMyMessage() ? 'flex-end' : 'flex-start',
-          minWidth:"50%",
-
+          minWidth: '50%',
         },
       ]}
     >
       {message.messageType === 'audioAndText' ? (
         <>
-         
           <View style={styles.audioPlayer}>
-          <TouchableOpacity onPress={playPauseAudio}>
-         <Ionicons name={isPlaying ? 'pause' : 'play'} size={24} color="blue" />
-          </TouchableOpacity>
+            <TouchableOpacity onPress={playPauseAudio}>
+              <Ionicons
+                name={isPlaying ? 'pause' : 'play'}
+                size={24}
+                color="blue"
+              />
+            </TouchableOpacity>
             <Slider
               style={styles.slider}
               minimumValue={0}
@@ -116,13 +115,11 @@ const onPlaybackStatusUpdate = async (status) => {
               value={progress}
               onValueChange={onSeek}
             />
-        <Text style={styles.progressText}>
-  {(isPlaying)
-    ? dayjs.duration(elapsedTime).format('mm:ss')
-    : dayjs.duration(duration).format('mm:ss')}
-</Text>
-
-
+            <Text style={styles.progressText}>
+              {isPlaying
+                ? dayjs.duration(elapsedTime).format('mm:ss')
+                : dayjs.duration(audioDuration).format('mm:ss')}
+            </Text>
           </View>
           <Text>{message.text}</Text>
         </>

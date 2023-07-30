@@ -42,7 +42,7 @@ const InputBox = ({ godLink }) => {
     setIsGettingResponse(true)
     try{
       addMessage(godLink, message);
-      let url = "http://192.168.1.12:2040/api/other/ttg/callAiGod/getResponse"
+      let url = "https://merekisan.in/api/other/ttg/callAiGod/getResponse"
 
       const response = await axios.post(url, {godLink, message})
         let myRes = response.data
@@ -84,7 +84,7 @@ const InputBox = ({ godLink }) => {
       if (uri) {
       const file = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
 
-     let url = "http://192.168.1.12:2040/api/other/ttg/appRecording/upload"
+     let url = "https://merekisan.in/api/other/ttg/appRecording/upload"
 
       const response = await axios.post(url, {file,LanguageCode})
     
