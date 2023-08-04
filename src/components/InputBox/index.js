@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import LottieView from 'lottie-react-native';
 import axios from 'axios'; // Import the axios library
 import { ActivityIndicator } from 'react-native';
-
+// const startUrl = "https://merekisan.in"
+const startUrl = "http://192.168.1.12:2040"
 const InputBox = ({ godLink }) => {
   const { t } = useTranslation();
   const LanguageCode = t('LanguageCode')
@@ -42,7 +43,7 @@ const InputBox = ({ godLink }) => {
     setIsGettingResponse(true)
     try{
       addMessage(godLink, message);
-      let url = "https://merekisan.in/api/other/ttg/callAiGod/getResponse"
+      let url = `${startUrl}/api/other/ttg/callAiGod/getResponse`
 
       const response = await axios.post(url, {godLink, message})
         let myRes = response.data
@@ -84,8 +85,7 @@ const InputBox = ({ godLink }) => {
       if (uri) {
       const file = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
 
-     let url = "https://merekisan.in/api/other/ttg/appRecording/upload"
-
+     let url = `${startUrl}/api/other/ttg/appRecording/upload`
       const response = await axios.post(url, {file,LanguageCode})
     
         const s3URL = response.data;
