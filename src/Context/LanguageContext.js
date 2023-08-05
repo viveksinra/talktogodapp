@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const LanguageContext = createContext();
 
 const LanguageProvider = ({ children }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const [selectedLanguage, setSelectedLanguage] = useState('हिंदी');
 
   useEffect(() => {
     // Retrieve the selected language from AsyncStorage

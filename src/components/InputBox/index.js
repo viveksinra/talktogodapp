@@ -10,6 +10,7 @@ import axios from 'axios'; // Import the axios library
 import { ActivityIndicator } from 'react-native';
 // const startUrl = "https://merekisan.in"
 const startUrl = "http://192.168.1.12:2040"
+// const startUrl = "http://192.168.1.10:2040"
 const InputBox = ({ godLink }) => {
   const { t } = useTranslation();
   const LanguageCode = t('LanguageCode')

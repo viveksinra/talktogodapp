@@ -9,8 +9,8 @@ const LanguageSelector = ({showIconOnly}) => {
   const {t, i18n } = useTranslation();
 
   const languages = [
-    { code: 'en', name: 'English' },
     { code: 'hi', name: 'हिंदी' },   
+    { code: 'en', name: 'English' },
   ];
   const onceSelectedLanguage = i18n.language || languages[0].code;
   const [selectedLanguage, setSelectedLanguage] = useState(onceSelectedLanguage);
