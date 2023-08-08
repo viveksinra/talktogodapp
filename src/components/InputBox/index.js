@@ -196,7 +196,7 @@ const InputBox = ({ godLink }) => {
   const startTimer = () => {
     const interval = setInterval(() => {
       setTimer((prevTimer) => prevTimer + 1);
-    }, 1000);
+    }, 3000);
     timerIntervalRef.current = interval;
   };
 

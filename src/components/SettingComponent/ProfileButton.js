@@ -14,9 +14,9 @@ const ProfileButton = ({ onPress }) => {
       </View> */}
       <View style={styles.profileContainer}>
         <Text style={styles.name}>
-        {t('hello')}
+        {t('title')}
         </Text>
-        <Text style={styles.status}>{status}</Text>
+        <Text style={styles.status}>{t('status')}</Text>
       </View>
     </TouchableOpacity>
   );

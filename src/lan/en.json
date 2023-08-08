@@ -3,7 +3,8 @@
   "translation": {
     "LanguageCode": "en-IN",
     "recordMessage":"Please speak your message in English..",
-    "hello":"Welcome",
+    "title":"Welcome",
+    "status":"Thanks for Downloading and Using our App",
     "input.placeholder":"Type your message in English...",
     "tab.donate":"Donate",
     "tab.chat":"Chat",
