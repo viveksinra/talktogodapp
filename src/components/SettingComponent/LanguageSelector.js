@@ -29,7 +29,7 @@ const LanguageSelector = ({showIconOnly}) => {
    { showIconOnly ?  (
     <TouchableOpacity onPress={() => setLanguageModalVisible(true)}>
   <View style={styles.navOptionTextContainer}>
-    <Ionicons name="globe-outline" size={24} color="black" />
+    <Ionicons name="language-outline" size={24} color="black" />
     <Text style={styles.selectnavText}>
       {languages.find((lang) => lang.code === selectedLanguage)?.name}
     </Text>
