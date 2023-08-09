@@ -23,6 +23,11 @@ const messageReducer = (state, action) => {
         ...state,
         messages: action.payload,
       };
+    case 'CLEAR_MESSAGES':
+        return {
+          ...state,
+          messages: {},
+        };
     default:
       return state;
   }
@@ -62,8 +67,12 @@ export const MessageProvider = ({ children }) => {
     dispatch({ type: 'ADD_MESSAGE', payload: { godLink, message } });
   };
 
+  const clearMessages = () => {
+    dispatch({ type: 'CLEAR_MESSAGES' });
+  };
+
   return (
-    <MessageContext.Provider value={{ messages: state.messages, addMessage }}>
+    <MessageContext.Provider value={{ messages: state.messages, addMessage,clearMessages }}>
       {children}
     </MessageContext.Provider>
   );

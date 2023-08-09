@@ -5,6 +5,7 @@ import OtherComponent from './OtherComponent';
 import ThemeSelector from './ThemeSelector';
 import LanguageSelector from './LanguageSelector';
 import ProfileButton from './ProfileButton';
+import DeleteChatButton from './DeleteChatButton';
 const handleProfileUpdate = () => {
   // Handle navigation or any logic for updating the profile
   // You can navigate to a new page using navigation library like React Navigation
@@ -16,6 +17,7 @@ const App = () => {
       <ProfileButton onPress={handleProfileUpdate} />
       {/* <ThemeSelector /> */}
       <LanguageSelector showIconOnly={false}  />
+      <DeleteChatButton />
     </LinearGradient>
   );
 };
