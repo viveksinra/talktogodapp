@@ -24,6 +24,7 @@
     "i18next": "^23.2.0",
     "intl-pluralrules": "^2.0.0",
     "lottie-react-native": "5.1.4",
+    "paytm_allinone_react-native": "^1.1.2",
     "react": "18.2.0",
     "react-i18next": "^13.0.0",
     "react-native": "0.71.8",

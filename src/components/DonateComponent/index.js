@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import PaytmIntegration from './PaytmIntegration'; // Import the PaytmIntegration component
+
 
 const DonateComponent = () => {
   const {t} = useTranslation();
@@ -55,9 +57,12 @@ const DonateComponent = () => {
             <FontAwesome name="plus" size={24} color="#ccc" style={styles.icon} />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.donateButton}>
-          <Text style={styles.donateButtonText}>{t('donate.buttom')}</Text>
-        </TouchableOpacity>
+     
+        <PaytmIntegration
+          amount={selectedAmount}
+          isStaging={true}
+       
+        />
       </View>
     </LinearGradient>
   );
