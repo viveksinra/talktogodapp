@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-nativ
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import PaytmIntegration from './PaytmIntegration'; // Import the PaytmIntegration component
+import { Linking } from 'react-native';
 
 
 const DonateComponent = () => {
@@ -11,6 +11,17 @@ const DonateComponent = () => {
 
   const amounts = [1, 5, 11, 21, 51, 101, 251, 501, 1100, 2100, 5100, 11000];
   const [selectedAmount, setSelectedAmount] = useState(21);
+  const handlePayment = () => {
+    // Replace 'YOUR_PAYMENT_LINK_HERE' with the actual payment link you want to open
+    const paymentLink = `https://qualifier.co.in/api/talkToGod/Payment/takePament/take/${selectedAmount}`;
+  
+    Linking.openURL(paymentLink)
+      .catch(error => {
+        console.error('Error opening payment link:', error);
+        // You can display an error message to the user if the link couldn't be opened
+      });
+  };
+  
 
   const handleAmountChange = (amount) => {
     setSelectedAmount(amount);
@@ -58,11 +69,9 @@ const DonateComponent = () => {
           </TouchableOpacity>
         </View>
      
-        <PaytmIntegration
-          amount={selectedAmount}
-          isStaging={true}
-       
-        />
+        <TouchableOpacity style={styles.donateButton} onPress={handlePayment}>
+      <Text style={styles.donateButtonText}>{t('donate.buttom')}</Text>
+    </TouchableOpacity>
       </View>
     </LinearGradient>
   );
