@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import NotImplementedScreen from "../screens/NotImplementedScreen";
 
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import ChatsScreens from "../screens/ChatsScreens";
@@ -7,7 +6,8 @@ import DonateScreen from "../screens/DonateScreen";
 import SettingScreen from "../screens/SettingScreen";
 import {useTranslation} from 'react-i18next';
 import LanguageSelector from "../components/SettingComponent/LanguageSelector";
-import { View } from "react-native";
+const logoImage = require('../../assets/images/appLogo.png');
+import { View,Image } from "react-native";
 const Tab = createBottomTabNavigator();
 
 const MainTabNavigator = () => {
@@ -32,32 +32,36 @@ const MainTabNavigator = () => {
         }}
       />
 
-      <Tab.Screen
-        name="talkToGod"
-        component={ChatsScreens}
-        options={({ navigation }) => ({
-          tabBarLabel: t('tab.chat'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons
-              name="ios-chatbubbles-sharp"
-              size={size}
-              color={color}
-            />
-          ),
-          headerTitle:"Talk To God",
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontStyle: 'italic',
-          },
-          headerRight: () => (
-            <View style={{ marginRight: 15 }}>
-            <LanguageSelector 
-            showIconOnly={true}
-            /></View>
-     
-          ),
-        })}
+<Tab.Screen
+  name="talkToGod"
+  component={ChatsScreens}
+  options={({ navigation }) => ({
+    tabBarLabel: t('tab.chat'),
+    tabBarIcon: ({ color, size }) => (
+      <Ionicons
+        name="ios-chatbubbles-sharp"
+        size={size}
+        color={color}
       />
+    ),
+    headerTitle: () => (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        {/* <LanguageSelector showIconOnly={true} /> */}
+        <Image
+          source={logoImage}
+          style={{ width: 150, height: 30, marginLeft: 2 }} // Adjust the size and margin as needed
+          resizeMode="contain" // Make sure the image fits within the space
+        />
+      </View>
+    ),
+    headerRight: () => (
+      <View style={{ marginRight: 15 }}>
+        <LanguageSelector showIconOnly={true} />
+      </View>
+    ),
+  })}
+/>
+
 
       <Tab.Screen
         name="Settings"

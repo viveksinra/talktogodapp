@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Modal, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Modal, Text, ToastAndroid } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
@@ -29,7 +29,7 @@ const InputBox = ({ godLink }) => {
   const resetStateTimer = setTimeout(() => {
     setIsAnalyzing(false);
     setIsGettingResponse(false);
-  }, 60000);
+  }, 150000);
 
   useEffect(() => {
     // Audio.requestPermissionsAsync();
@@ -53,6 +53,8 @@ const InputBox = ({ godLink }) => {
           addMessage(godLink, myRes.resMessage); 
         }
     }catch(error){
+      ToastAndroid.show('some error occured while sending or setting the message', ToastAndroid.SHORT);
+
       console.log("some error occured while sending or setting the message" + error)
     }
     setIsGettingResponse(false)
@@ -62,6 +64,13 @@ const InputBox = ({ godLink }) => {
   const startRecording = async () => {
     try {
       await Audio.requestPermissionsAsync();
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      });
       const newRecording = new Audio.Recording();
       await newRecording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
       await newRecording.startAsync();
@@ -71,6 +80,7 @@ const InputBox = ({ godLink }) => {
       startTimer();
       setIsRecording(true);
     } catch (error) {
+      ToastAndroid.show('Failed to start recording', ToastAndroid.SHORT);
       console.log('Failed to start recording', error);
     }
   };
@@ -113,10 +123,20 @@ const InputBox = ({ godLink }) => {
     sendAndGetResponse(godLink, message);
         setNewMessage('');
       } else {
+        ToastAndroid.show('No audio recording found', ToastAndroid.SHORT);
+
         console.log('No audio recording found');
       }
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      });
     } catch (error) {
     setIsAnalyzing(false)
+    ToastAndroid.show('Failed to stop recording', ToastAndroid.SHORT);
 
       console.log('Failed to stop recording', error);
     }
