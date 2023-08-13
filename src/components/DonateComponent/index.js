@@ -13,7 +13,7 @@ const DonateComponent = () => {
   const [selectedAmount, setSelectedAmount] = useState(21);
   const handlePayment = () => {
     // Replace 'YOUR_PAYMENT_LINK_HERE' with the actual payment link you want to open
-    const paymentLink = `https://qualifier.co.in/api/talkToGod/Payment/takePament/take/${selectedAmount}`;
+    const paymentLink = `https://qualifier.co.in/api/talkToGod/Payment/takePayment/take/${selectedAmount}`;
   
     Linking.openURL(paymentLink)
       .catch(error => {
