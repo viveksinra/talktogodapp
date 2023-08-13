@@ -23,11 +23,11 @@
     "getApk3": {
       "developmentClient": true
     },
-    "production": {}
-  },
-  "submit": {
     "production": {
       "autoIncrement": true
     }
+  },
+  "submit": {
+    "production": {}
   }
 }
