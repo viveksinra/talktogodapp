@@ -7,11 +7,37 @@ import SettingScreen from "../screens/SettingScreen";
 import {useTranslation} from 'react-i18next';
 import LanguageSelector from "../components/SettingComponent/LanguageSelector";
 const logoImage = require('../../assets/images/appLogo.png');
-import { View,Image } from "react-native";
+import { View,Image,Animated } from "react-native";
+import { useEffect } from "react";
 const Tab = createBottomTabNavigator();
 
 const MainTabNavigator = () => {
   const { t } = useTranslation();
+  const buttonOpacity = new Animated.Value(1);
+  useEffect(() => {
+    const animateButton = () => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(buttonOpacity, {
+            toValue: 0.5,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+          Animated.timing(buttonOpacity, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    };
+  
+    animateButton();
+  
+    return () => {
+      buttonOpacity.stopAnimation();
+    };
+  }, []);
   return (
     <Tab.Navigator
       initialRouteName="talkToGod" 
@@ -47,11 +73,14 @@ const MainTabNavigator = () => {
     headerTitle: () => (
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {/* <LanguageSelector showIconOnly={true} /> */}
+        <Animated.View style={{ opacity: buttonOpacity }}>
         <Image
           source={logoImage}
           style={{ width: 150, height: 30, marginLeft: 2 }} // Adjust the size and margin as needed
           resizeMode="contain" // Make sure the image fits within the space
         />
+              </Animated.View>
+     
       </View>
     ),
     headerRight: () => (
