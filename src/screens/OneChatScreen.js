@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, Animated, Image } from 'react-native'
 import {useRoute, useNavigation} from '@react-navigation/native';
 import React, { useEffect, useContext } from 'react';
-import bg from '../../assets/images/BG.png'
+import bg from '../../assets/images/BG.webp'
 import { ImageBackground } from 'react-native'
 import { StyleSheet } from "react-native";
 import Message from '../components/Message'
