@@ -3,6 +3,8 @@
     "name": "Talk To God",
     "slug": "talk-to-gods",
     "version": "1.1.0",
+    "versionCode": 2, 
+    "android.versionCode":"1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
