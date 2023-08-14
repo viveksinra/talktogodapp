@@ -11,7 +11,13 @@ import { ActivityIndicator } from 'react-native';
 const startUrl = "https://merekisan.in"
 // const startUrl = "http://192.168.1.12:2040"
 // const startUrl = "http://192.168.1.10:2040"
+import { MessageContext } from './../../src/components/Message/MessageProvider';
+
+
 const InputBox = ({ godLink }) => {
+const { messages } = useContext(MessageContext);
+const godMessage = messages[godLink];
+
   const { t } = useTranslation();
   const LanguageCode = t('LanguageCode')
 
@@ -45,8 +51,9 @@ const InputBox = ({ godLink }) => {
     try{
       addMessage(godLink, message);
       let url = `${startUrl}/api/other/ttg/callAiGod/getResponse`
+      const prevMsgs = godMessage.slice(-4);
 
-      const response = await axios.post(url, {godLink, message})
+      const response = await axios.post(url, {godLink,message,prevMsgs})
         let myRes = response.data
         if(myRes.variant == "success"){
           setIsGettingResponse(false)

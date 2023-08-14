@@ -97,12 +97,12 @@ const godLink = route.params.link
         <View style={styles.bg}>
         <ImageBackground source={bg} style={styles.bg}>
         <FlatList
-  data={messages[godLink]}
-  renderItem={({ item }) => <Message message={item} key={item.id} />}
-  keyExtractor={(item) => item.id}
-  style={styles.list}
-  inverted
-/>
+         data={messages[godLink]}
+         renderItem={({ item }) => <Message message={item} key={item.id} />}
+         keyExtractor={(item) => item.id}
+         style={styles.list}
+         inverted
+        />
             <InputBox godLink={godLink} />
         </ImageBackground>
         </View>
