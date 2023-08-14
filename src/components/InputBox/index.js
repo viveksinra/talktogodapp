@@ -11,7 +11,6 @@ import { ActivityIndicator } from 'react-native';
 const startUrl = "https://merekisan.in"
 // const startUrl = "http://192.168.1.12:2040"
 // const startUrl = "http://192.168.1.10:2040"
-import { MessageContext } from './../../src/components/Message/MessageProvider';
 
 
 const InputBox = ({ godLink }) => {
