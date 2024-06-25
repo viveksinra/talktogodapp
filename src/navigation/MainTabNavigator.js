@@ -65,7 +65,7 @@ const MainTabNavigator = () => {
     tabBarLabel: t('tab.chat'),
     tabBarIcon: ({ color, size }) => (
       <Ionicons
-        name="ios-chatbubbles-sharp"
+        name="chatbubbles-sharp"
         size={size}
         color={color}
       />
